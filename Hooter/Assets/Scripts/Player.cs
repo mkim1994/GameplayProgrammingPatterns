@@ -49,15 +49,15 @@ public class Player : MonoBehaviour {
 		rb.velocity = movement * speed;
 
 		//clamping manually b/c Mathf.Clamp isn't really cooperating...?
-		if (rb.position.x < -32) {
-			rb.position = new Vector3 (-32, rb.position.y, rb.position.z);
-		} else if (rb.position.x > 32) {
-			rb.position = new Vector3 (32, rb.position.y, rb.position.z);
+		if (rb.position.x < boundary.xMin) {
+			rb.position = new Vector3 (boundary.xMin, rb.position.y, rb.position.z);
+		} else if (rb.position.x > boundary.xMax) {
+			rb.position = new Vector3 (boundary.xMax, rb.position.y, rb.position.z);
 		}
-		if (rb.position.z < -20) {
-			rb.position = new Vector3 (rb.position.x, rb.position.y, -20);
-		} else if (rb.position.z > 20) {
-			rb.position = new Vector3 (rb.position.x, rb.position.y, 20);
+		if (rb.position.z < boundary.zMin) {
+			rb.position = new Vector3 (rb.position.x, rb.position.y, boundary.zMin);
+		} else if (rb.position.z > boundary.zMax) {
+			rb.position = new Vector3 (rb.position.x, rb.position.y, boundary.zMax);
 		}
 	}
 	void DongDirection(){
@@ -78,8 +78,8 @@ public class Player : MonoBehaviour {
 	void FireBullet(){
 		if (Input.GetMouseButtonDown(0)) {
 			GameObject bullet = Instantiate (bulletPrefab, bulletSpawn.GetChild(0).position, bulletSpawn.rotation) as GameObject;
-			bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * 6;
-			Destroy (bullet, 4.0f);
+			bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bullet.GetComponent<Bullet>().speed;
+			Destroy (bullet, bullet.GetComponent<Bullet>().duration);
 		}
 	}
 }
