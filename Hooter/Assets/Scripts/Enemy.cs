@@ -44,6 +44,10 @@ public abstract class Enemy : MonoBehaviour {
 	public int enemyDamage(){
 		return dmg;
 	}
+
+	public void SetHP(int health){
+		hp = health;
+	}
 		
 
 	protected void DestroyEnemyCheck(string enemyname){

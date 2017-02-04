@@ -92,6 +92,7 @@ public class Player : MonoBehaviour {
 	void OnCollisionEnter(Collision collision){
 		if (collision.gameObject.GetComponent<Enemy> () != null) {
 			hp -= collision.gameObject.GetComponent<Enemy> ().enemyDamage ();
+			collision.gameObject.GetComponent<Enemy> ().SetHP (-1);
 		}
 	}
 

@@ -15,7 +15,7 @@ public class EnemyB : Enemy {
 	void Start () {	
 		angle = 0;
 		speed = (2 * Mathf.PI) / 5;
-		radius = 10;
+		radius = 20;
 
 
 		PlaySound ("enemyBspawn", 1f);
@@ -26,6 +26,7 @@ public class EnemyB : Enemy {
 		angle += speed * Time.deltaTime;
 		transform.position = new Vector3 (Mathf.Sin (angle) * radius, 0f,
 		Mathf.Cos (angle) * radius);
+		radius -= 0.1f;
 	}
 
 

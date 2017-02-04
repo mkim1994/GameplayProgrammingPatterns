@@ -15,9 +15,7 @@ public class EnemyA : Enemy {
 	void Start () {
 		angle = 0;
 		speed = (2 * Mathf.PI) / 5;
-		radius = 5;
-
-
+		radius = 20;
 
 		PlaySound ("enemyAspawn", 1f);
 	}
@@ -29,7 +27,7 @@ public class EnemyA : Enemy {
 		angle += speed * Time.deltaTime;
 		transform.position = new Vector3 (Mathf.Cos (angle) * radius, 0f,
 			Mathf.Sin (angle) * radius);
-		//Debug.Log ("i'm moving");
+		radius -= 0.1f;
 	}
 	
 	// Update is called once per frame
