@@ -11,6 +11,8 @@ public class Boundary
 public class Player : MonoBehaviour {
 	//x = x, z is actually y (vertical movement)
 
+	public int hp;
+
 	public float speed;
 	public float tilt;
 
@@ -32,14 +34,18 @@ public class Player : MonoBehaviour {
 
 	void Update(){
 
+		if (hp < 0) {
+			Debug.Log ("gameover");
+		}
+
+		MovePlayer ();
+		DongDirection ();
+		FireBullet ();
 
 
 	}
 
 	void FixedUpdate () {
-		MovePlayer ();
-		DongDirection ();
-		FireBullet ();
 	}
 
 	void MovePlayer(){
@@ -76,10 +82,18 @@ public class Player : MonoBehaviour {
 	}
 
 	void FireBullet(){
-		if (Input.GetMouseButtonDown(0)) {
+		if (Input.GetMouseButtonUp(0)) {
 			GameObject bullet = Instantiate (bulletPrefab, bulletSpawn.GetChild(0).position, bulletSpawn.rotation) as GameObject;
 			bullet.GetComponent<Rigidbody>().velocity = bullet.transform.forward * bullet.GetComponent<Bullet>().speed;
 			Destroy (bullet, bullet.GetComponent<Bullet>().duration);
 		}
 	}
+
+	void OnCollisionEnter(Collision collision){
+		if (collision.gameObject.GetComponent<Enemy> () != null) {
+			hp -= collision.gameObject.GetComponent<Enemy> ().enemyDamage ();
+		}
+	}
+
+
 }
