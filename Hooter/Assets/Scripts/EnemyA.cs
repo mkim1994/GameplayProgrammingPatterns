@@ -6,15 +6,17 @@ public class EnemyA : Enemy {
 
 	float angle, speed, radius;
 
-	public EnemyA(){
-		hp = 3;
-		dmg = 2;
-	}
-
 	// Use this for initialization
 	void Start () {
+
+
+		//realname = this.name;
+
+		hp = 3;
+		dmg = 2;
+
 		angle = 0;
-		speed = (2 * Mathf.PI) / 5;
+		speed = (2 * Mathf.PI) / 10;
 		radius = 20;
 
 		PlaySound ("enemyAspawn", 1f);

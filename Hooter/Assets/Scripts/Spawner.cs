@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour {
 
-	public GameObject[] enemytypeprefabs;
+
 
 	// Use this for initialization
 	void Start () {
@@ -16,11 +16,7 @@ public class Spawner : MonoBehaviour {
 		
 	}
 
-	void spawnEnemies(){
-		GameObject enemy = enemytypeprefabs [Random.Range (0, 2)];
-		Instantiate (enemy, enemy.transform.position, Quaternion.identity);
 
-	}
 
 	/*IEnumerator spawnEnemies(){
 

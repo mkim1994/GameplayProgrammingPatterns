@@ -24,10 +24,22 @@ public abstract class Enemy : MonoBehaviour {
 
 	protected int hp;
 	protected int dmg;
+	//protected string realname;
+
 	protected AudioClip audioclip;
 
 	public abstract void Move ();
-		
+
+	protected bool destroyed;
+
+	protected EnemyManager enemymanager;
+
+	void Awake(){
+		enemymanager = GameObject.FindWithTag ("EnemyManager").GetComponent<EnemyManager> ();
+		enemymanager.currentEnemyCount++;
+
+
+	}
 
 	protected void PlaySound(string clip, float volume){
 
@@ -51,7 +63,9 @@ public abstract class Enemy : MonoBehaviour {
 		
 
 	protected void DestroyEnemyCheck(string enemyname){
-		if (hp < 0) {
+		if (hp < 0 && !destroyed) {
+			destroyed = true;
+			enemymanager.currentEnemyCount--;
 			PlaySound("enemy"+enemyname+"destroyed",1f);
 			transform.GetChild (0).gameObject.GetComponent<MeshRenderer> ().enabled = false;
 			Destroy(gameObject, audioclip.length);

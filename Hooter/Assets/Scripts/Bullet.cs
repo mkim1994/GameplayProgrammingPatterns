@@ -19,9 +19,10 @@ public class Bullet : MonoBehaviour {
 		
 	}
 
-	void OnCollisionEnter(Collision collision){
-		if (collision.gameObject.GetComponent<Enemy> () != null) {
-			collision.gameObject.GetComponent<Enemy> ().takeDamage (damage);
+	void OnTriggerEnter(Collider collider){
+		if (collider.GetComponent<Enemy> () != null) {
+			collider.GetComponent<Enemy> ().takeDamage (damage);
+			Destroy (gameObject);
 		}
 	}
 }

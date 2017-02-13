@@ -6,15 +6,16 @@ public class EnemyB : Enemy {
 	
 	float angle, speed, radius;
 
-	public EnemyB(){
-		hp = 1;
-		dmg = 1;
-	}
-
 	// Use this for initialization
 	void Start () {	
+
+		//realname = this.name;
+
+		hp = 1;
+		dmg = 1;
+
 		angle = 0;
-		speed = (2 * Mathf.PI) / 5;
+		speed = (2 * Mathf.PI) / 10;
 		radius = 20;
 
 

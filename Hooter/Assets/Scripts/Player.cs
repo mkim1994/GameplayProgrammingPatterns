@@ -35,7 +35,7 @@ public class Player : MonoBehaviour {
 	void Update(){
 
 		if (hp < 0) {
-			Debug.Log ("gameover");
+			//Debug.Log ("gameover");
 		}
 
 		MovePlayer ();
@@ -89,10 +89,10 @@ public class Player : MonoBehaviour {
 		}
 	}
 
-	void OnCollisionEnter(Collision collision){
-		if (collision.gameObject.GetComponent<Enemy> () != null) {
-			hp -= collision.gameObject.GetComponent<Enemy> ().enemyDamage ();
-			collision.gameObject.GetComponent<Enemy> ().SetHP (-1);
+	void OnTriggerEnter(Collider collider){
+		if (collider.GetComponent<Enemy> () != null) {
+			hp -= collider.GetComponent<Enemy> ().enemyDamage ();
+			collider.GetComponent<Enemy> ().SetHP (-1);
 		}
 	}
 
