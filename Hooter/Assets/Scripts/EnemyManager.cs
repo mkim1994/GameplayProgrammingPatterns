@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class EnemyManager : MonoBehaviour {
 
@@ -15,6 +16,7 @@ public class EnemyManager : MonoBehaviour {
 
 	[HideInInspector]
 	public int currentEnemyCount;
+	private int numOfEnemiesDestroyed;
 	[HideInInspector]
 	public List<EnemyWave> enemyWaves;
 	[HideInInspector]
@@ -23,6 +25,7 @@ public class EnemyManager : MonoBehaviour {
 
 
 	void Awake(){
+		EventManager.StartListening ("AnEnemyDestroyed", AnEnemyDestroyed);
 		enemyWaves = new List<EnemyWave> ();
 		makeEnemyWaves ();
 		StartCoroutine (spawnWave ());
@@ -36,9 +39,12 @@ public class EnemyManager : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		//should only go over to the next wave when current number of enemies is 0
+		//for circular behavior use mod
 		if (waveComplete && currentEnemyCount == 0 && currentWave != numOfEnemyWaves) {
 			waveComplete = false;
 			StartCoroutine (spawnNextWave ());
+		} else if (currentWave > numOfEnemyWaves) {
+			EventManager.StopListening ("AnEnemyDestroyed", AnEnemyDestroyed);
 		}
 	}
 
@@ -89,8 +95,17 @@ public class EnemyManager : MonoBehaviour {
 
 	}
 
+	void AnEnemyDestroyed(){
+		numOfEnemiesDestroyed++;
+		foreach (GameObject enemy in enemyWaves[currentWave].enemyList) {
+			//Debug.Log (enemy.GetComponent<Enemy> ().GetType());
 
-
+			if (enemy.GetComponent<EnemyC>() == null){
+				Debug.Log ("what");
+				enemy.GetComponent<EnemyC> ().increaseSpeed (numOfEnemiesDestroyed*1f);
+			}
+		}
+	}
 
 
 }

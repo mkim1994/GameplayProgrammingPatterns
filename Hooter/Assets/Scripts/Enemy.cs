@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public abstract class Enemy : MonoBehaviour {
 
@@ -24,7 +25,7 @@ public abstract class Enemy : MonoBehaviour {
 
 	protected int hp;
 	protected int dmg;
-	//protected string realname;
+	protected string type;
 
 	protected AudioClip audioclip;
 
@@ -60,17 +61,22 @@ public abstract class Enemy : MonoBehaviour {
 	public void SetHP(int health){
 		hp = health;
 	}
+
+	public virtual string GetType(){
+		return type;
+	}
 		
 
 	protected void DestroyEnemyCheck(string enemyname){
-		if (hp < 0 && !destroyed) {
+		if (hp <= 0 && !destroyed) {
 			destroyed = true;
-			enemymanager.currentEnemyCount--;
+			enemymanager.currentEnemyCount--; //find some other way to keep it contained to enemymanager
 			PlaySound("enemy"+enemyname+"destroyed",1f);
 			transform.GetChild (0).gameObject.GetComponent<MeshRenderer> ().enabled = false;
+			EventManager.TriggerEvent ("AnEnemyDestroyed");
 			Destroy(gameObject, audioclip.length);
 		}
 	}
-
+		
 
 }

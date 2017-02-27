@@ -10,13 +10,14 @@ public class EnemyA : Enemy {
 	void Start () {
 
 
-		//realname = this.name;
+		type = "A";
 
-		hp = 3;
+		hp = 1;
 		dmg = 2;
 
+
 		angle = 0;
-		speed = (2 * Mathf.PI) / 10;
+		speed = (2 * Mathf.PI) / 20;
 		radius = 20;
 
 		PlaySound ("enemyAspawn", 1f);

@@ -9,13 +9,13 @@ public class EnemyB : Enemy {
 	// Use this for initialization
 	void Start () {	
 
-		//realname = this.name;
+		type = "B";
 
 		hp = 1;
 		dmg = 1;
 
 		angle = 0;
-		speed = (2 * Mathf.PI) / 10;
+		speed = (2 * Mathf.PI) / 20;
 		radius = 20;
 
 
