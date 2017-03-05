@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyA : Enemy {
 
-	float angle, speed, radius;
+	private float angle, speed, radius;
 
 	// Use this for initialization
 	void Start () {
@@ -17,7 +17,7 @@ public class EnemyA : Enemy {
 
 
 		angle = 0;
-		speed = (2 * Mathf.PI) / 20;
+		speed = (2 * Mathf.PI) / 20f;
 		radius = 20;
 
 		PlaySound ("enemyAspawn", 1f);
@@ -37,6 +37,10 @@ public class EnemyA : Enemy {
 	void Update () {
 		Move ();
 		DestroyEnemyCheck ("A");
+	}
+
+	public override void increaseSpeed(float f){
+	//	Debug.Log (type);
 	}
 
 }

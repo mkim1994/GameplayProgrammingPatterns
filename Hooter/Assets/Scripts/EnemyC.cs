@@ -5,15 +5,18 @@ using UnityEngine.Events;
 
 public class EnemyC : Enemy {
 	
-	float angle, radius;
-	float speed;
-	float speedfactor;
+	private float angle, radius;
+	public float speed;
+	private float speedfactor;
 
 	//private UnityAction someListener;
+
+
 
 	// Use this for initialization
 	void Start () {	
 		//someListener = new UnityAction ();
+
 
 		type = "C";
 		hp = 1;
@@ -26,19 +29,22 @@ public class EnemyC : Enemy {
 
 
 		PlaySound ("enemyCspawn", 1f);
-
-		print (GetType ());
 	}
 
 	public override void Move ()
 	{
-		
-
-		//Debug.Log (speed);
+		//why does this work? and not when i try to do it in enemymanager?
+		float enem = enemymanager.numOfEnemiesDestroyed;
+		if (enem < 20f) {
+			speed = (2f * Mathf.PI) / (20f - 5f * enem);
+		}
+	//	Debug.Log (speed);
 		angle += speed * Time.deltaTime;
 		transform.position = new Vector3 (Mathf.Sin (angle) * radius, 0f,
 		Mathf.Cos (angle) * radius);
 		radius -= 0.1f;
+
+
 	}
 
 
@@ -49,15 +55,9 @@ public class EnemyC : Enemy {
 		DestroyEnemyCheck ("C");
 	}
 
-	public void increaseSpeed(float factor){
-		//Debug.Log (speedfactor);
-		//print ("factor: " + factor + ", speedfactor: " + speedfactor);
+	public override void increaseSpeed(float factor){
 		if (factor < 20f) {
-
-		
 			speed = (2f * Mathf.PI) / (20f - factor);
-			//Debug.Log (speed);
 		}
-
 	}
 }

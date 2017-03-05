@@ -16,13 +16,13 @@ public class EnemyManager : MonoBehaviour {
 
 	[HideInInspector]
 	public int currentEnemyCount;
-	private int numOfEnemiesDestroyed;
+	public int numOfEnemiesDestroyed;
 	[HideInInspector]
 	public List<EnemyWave> enemyWaves;
 	[HideInInspector]
 	public List<float> timeBetweenWaves;
 
-
+	private float enemyCspeed;
 
 	void Awake(){
 		EventManager.StartListening ("AnEnemyDestroyed", AnEnemyDestroyed);
@@ -56,6 +56,10 @@ public class EnemyManager : MonoBehaviour {
 	IEnumerator spawnWave(){
 		/*spawns enemies in a wave*/
 		for(int i = 0; i < enemyWaves[currentWave].enemyList.Count; i++){
+			//enemyWaves[currentWave].enemyList[i].GetComponent<Enemy> ().increaseSpeed (numOfEnemiesDestroyed * 10f);
+
+			//enemyWaves[currentWave].enemyList[i].GetComponent<Enemy>().speed = (2f * Mathf.PI) / (20f - factor);
+
 			spawnEnemy (enemyWaves[currentWave].enemyList[i]);
 			yield return new WaitForSeconds (enemyWaves[currentWave].spawnRates[i]);
 		}
@@ -97,14 +101,11 @@ public class EnemyManager : MonoBehaviour {
 
 	void AnEnemyDestroyed(){
 		numOfEnemiesDestroyed++;
-		foreach (GameObject enemy in enemyWaves[currentWave].enemyList) {
-			//Debug.Log (enemy.GetComponent<Enemy> ().GetType());
+		/*foreach (GameObject enemy in enemyWaves[currentWave].enemyList) {
+			//enemy.GetComponent<Enemy> ().increaseSpeed (numOfEnemiesDestroyed * 1f);
 
-			if (enemy.GetComponent<EnemyC>() == null){
-				Debug.Log ("what");
-				enemy.GetComponent<EnemyC> ().increaseSpeed (numOfEnemiesDestroyed*1f);
-			}
-		}
+		}*/
+		//enemyCspeed = (2f * Mathf.PI) / (20f - );
 	}
 
 

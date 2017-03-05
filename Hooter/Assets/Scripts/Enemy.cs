@@ -27,6 +27,8 @@ public abstract class Enemy : MonoBehaviour {
 	protected int dmg;
 	protected string type;
 
+
+
 	protected AudioClip audioclip;
 
 	public abstract void Move ();
@@ -65,7 +67,8 @@ public abstract class Enemy : MonoBehaviour {
 	public virtual string GetType(){
 		return type;
 	}
-		
+
+
 
 	protected void DestroyEnemyCheck(string enemyname){
 		if (hp <= 0 && !destroyed) {
@@ -73,10 +76,14 @@ public abstract class Enemy : MonoBehaviour {
 			enemymanager.currentEnemyCount--; //find some other way to keep it contained to enemymanager
 			PlaySound("enemy"+enemyname+"destroyed",1f);
 			transform.GetChild (0).gameObject.GetComponent<MeshRenderer> ().enabled = false;
-			EventManager.TriggerEvent ("AnEnemyDestroyed");
+			if (enemyname == "C") {
+				EventManager.TriggerEvent ("AnEnemyDestroyed");
+			}
 			Destroy(gameObject, audioclip.length);
 		}
 	}
+
+	public abstract void increaseSpeed (float f);
 		
 
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyB : Enemy {
 	
-	float angle, speed, radius;
+	private float angle, speed, radius;
 
 	// Use this for initialization
 	void Start () {	
@@ -37,6 +37,10 @@ public class EnemyB : Enemy {
 		Move ();
 		DestroyEnemyCheck ("B");
 		
+	}
+
+	public override void increaseSpeed(float f){
+		//Debug.Log (type);
 	}
 
 }
