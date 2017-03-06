@@ -64,10 +64,6 @@ public abstract class Enemy : MonoBehaviour {
 		hp = health;
 	}
 
-	public virtual string GetType(){
-		return type;
-	}
-
 
 
 	protected void DestroyEnemyCheck(string enemyname){

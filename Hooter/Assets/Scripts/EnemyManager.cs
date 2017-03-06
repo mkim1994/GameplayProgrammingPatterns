@@ -101,11 +101,6 @@ public class EnemyManager : MonoBehaviour {
 
 	void AnEnemyDestroyed(){
 		numOfEnemiesDestroyed++;
-		/*foreach (GameObject enemy in enemyWaves[currentWave].enemyList) {
-			//enemy.GetComponent<Enemy> ().increaseSpeed (numOfEnemiesDestroyed * 1f);
-
-		}*/
-		//enemyCspeed = (2f * Mathf.PI) / (20f - );
 	}
 
 
