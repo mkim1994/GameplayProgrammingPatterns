@@ -78,8 +78,7 @@ public class Task {
 		case TaskStatus.Pending:
 			break;
 		default:
-			//throw new ArgumentOutOfRangeException (nameof (newStatus), newStatus, null);
-			throw new ArgumentOutOfRangeException();
+			throw new ArgumentOutOfRangeException(newStatus.ToString(), newStatus, null);
 		
 
 		}
@@ -139,6 +138,4 @@ public class Task {
 		NextTask = task;
 		return task;
 	}
-
-
 }

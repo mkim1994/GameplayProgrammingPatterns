@@ -13,7 +13,9 @@ public class EventManager : MonoBehaviour {
 	public static EventManager instance{
 		get{
 			if (!eventManager) {
+				//applicable b/c i'm attaching it to a GameObject
 				eventManager = FindObjectOfType (typeof(EventManager)) as EventManager;
+
 				if (!eventManager) {
 					Debug.LogError ("There needs to be one active EventManager script on a GameObject in your scene");
 				} else {
@@ -27,7 +29,7 @@ public class EventManager : MonoBehaviour {
 	}
 
 	void Init(){
-		//load our dictinoary
+		//load our dictionary
 		if (eventDictionary == null) {
 			eventDictionary = new Dictionary<string,UnityEvent> ();
 		}

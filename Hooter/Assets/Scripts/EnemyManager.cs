@@ -10,6 +10,7 @@ public class EnemyManager : MonoBehaviour {
 	public float minEnemyWaveTime,maxEnemyWaveTime;
 	public float minEnemySpawnTime, maxEnemySpawnTime;
 	public GameObject[] enemytypeprefabs;
+	public GameObject[] bossprefabs;
 
 	private int currentWave;
 	private bool waveComplete;
@@ -24,8 +25,11 @@ public class EnemyManager : MonoBehaviour {
 
 	private float enemyCspeed;
 
+	private bool bossSpawned;
+
 	void Awake(){
 		EventManager.StartListening ("AnEnemyDestroyed", AnEnemyDestroyed);
+		EventManager.StartListening ("AWaveCompleted", AWaveCompleted);
 		enemyWaves = new List<EnemyWave> ();
 		makeEnemyWaves ();
 		StartCoroutine (spawnWave ());
@@ -33,7 +37,6 @@ public class EnemyManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		
 	}
 	
 	// Update is called once per frame
@@ -41,10 +44,18 @@ public class EnemyManager : MonoBehaviour {
 		//should only go over to the next wave when current number of enemies is 0
 		//for circular behavior use mod
 		if (waveComplete && currentEnemyCount == 0 && currentWave != numOfEnemyWaves) {
+			EventManager.TriggerEvent ("AWaveCompleted");
+
 			waveComplete = false;
 			StartCoroutine (spawnNextWave ());
 		} else if (currentWave > numOfEnemyWaves) {
 			EventManager.StopListening ("AnEnemyDestroyed", AnEnemyDestroyed);
+		}
+
+
+		if (currentWave == numOfEnemyWaves && !bossSpawned) {
+			spawnEnemy (bossprefabs [0]);
+			bossSpawned = true;
 		}
 	}
 
@@ -69,11 +80,13 @@ public class EnemyManager : MonoBehaviour {
 		currentWave++;
 		waveComplete = true;
 
+
 	}
 
 	void spawnEnemy(GameObject enemy){
 		Instantiate (enemy, enemy.transform.position, Quaternion.identity);
 	}
+
 
 	void makeEnemyWaves(){
 		/*makes enemy waves*/
@@ -101,6 +114,12 @@ public class EnemyManager : MonoBehaviour {
 
 	void AnEnemyDestroyed(){
 		numOfEnemiesDestroyed++;
+	}
+
+	void AWaveCompleted(){
+		Debug.Log ("wave complete");
+		/*WaitTask waittask = new WaitTask (3.0);
+		Services.TaskManager.AddTask (waittask);*/
 	}
 
 

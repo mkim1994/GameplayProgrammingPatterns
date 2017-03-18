@@ -36,7 +36,7 @@ public class EnemyC : Enemy {
 		//why does this work? and not when i try to do it in enemymanager?
 		float enem = enemymanager.numOfEnemiesDestroyed;
 		if (enem < 20f) {
-			speed = (2f * Mathf.PI) / (20f - 5f * enem);
+			speed = (2f * Mathf.PI) / (20f - 1f * enem);
 		}
 	//	Debug.Log (speed);
 		angle += speed * Time.deltaTime;

@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class TaskManager : MonoBehaviour {
+public class TaskManager { // maybe from extend from MonoBehaviour
 
 	private readonly List<Task> _tasks = new List<Task>();
+
 
 	// Use this for initialization
 	void Start () {
