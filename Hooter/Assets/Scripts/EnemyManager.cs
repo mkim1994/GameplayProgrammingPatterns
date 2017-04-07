@@ -12,8 +12,8 @@ public class EnemyManager : MonoBehaviour {
 	public GameObject[] enemytypeprefabs;
 	public GameObject[] bossprefabs;
 
-	private int currentWave;
-	private bool waveComplete;
+	public int currentWave;
+	public bool waveComplete;
 
 	[HideInInspector]
 	public int currentEnemyCount;
@@ -37,6 +37,13 @@ public class EnemyManager : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+	}
+
+	public void resetWaves(){
+		currentWave = 0;
+		waveComplete = false;
+		makeEnemyWaves ();
+		StartCoroutine (spawnNextWave ());
 	}
 	
 	// Update is called once per frame
@@ -67,9 +74,6 @@ public class EnemyManager : MonoBehaviour {
 	IEnumerator spawnWave(){
 		/*spawns enemies in a wave*/
 		for(int i = 0; i < enemyWaves[currentWave].enemyList.Count; i++){
-			//enemyWaves[currentWave].enemyList[i].GetComponent<Enemy> ().increaseSpeed (numOfEnemiesDestroyed * 10f);
-
-			//enemyWaves[currentWave].enemyList[i].GetComponent<Enemy>().speed = (2f * Mathf.PI) / (20f - factor);
 
 			spawnEnemy (enemyWaves[currentWave].enemyList[i]);
 			yield return new WaitForSeconds (enemyWaves[currentWave].spawnRates[i]);
