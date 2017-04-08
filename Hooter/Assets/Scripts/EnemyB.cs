@@ -43,4 +43,6 @@ public class EnemyB : Enemy {
 		//Debug.Log (type);
 	}
 
+
+
 }

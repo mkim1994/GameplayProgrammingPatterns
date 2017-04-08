@@ -99,7 +99,7 @@ public class EnemyD : Enemy {
 			} else {
 				count++;
 				Context.Pulse (); //make it more obvious that it's pulsing, give more time in-between
-				if (Context.takeDamage (1)) {
+				if(Context.dmg < 2) {
 					TransitionTo<Fleeing> ();
 					return;
 				}
