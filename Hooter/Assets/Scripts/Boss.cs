@@ -70,89 +70,96 @@ public class Boss : MonoBehaviour {
 		}
 	}
 
-}
 
-public class AppearTask : Task {
-	private readonly Boss _boss;
-	private readonly EnemyManager _enemymanager;
-	public AppearTask(Boss boss, EnemyManager enemymanager){
-		_boss = boss;
-		_enemymanager = enemymanager;
+	public class AppearTask : Task {
+		private readonly Boss _boss;
+		private readonly EnemyManager _enemymanager;
+		public AppearTask(Boss boss, EnemyManager enemymanager){
+			_boss = boss;
+			_enemymanager = enemymanager;
 
+		}
+
+		internal override void Update(){
+			//Debug.Log ("appear");
+			_boss.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
+			if (_boss.transform.localScale.x >= 1f) {
+				SetStatus (TaskStatus.Success);
+			}
+		}
 	}
 
-	internal override void Update(){
-		//Debug.Log ("appear");
-		_boss.transform.localScale += new Vector3(0.1f, 0.1f, 0.1f);
-		if (_boss.transform.localScale.x >= 1f) {
-			SetStatus (TaskStatus.Success);
+	public class SpawnTask : Task {
+		private readonly Boss _boss;
+		private readonly EnemyManager _enemymanager;
+		public SpawnTask(Boss boss, EnemyManager enemymanager){
+			_boss = boss;
+			_enemymanager = enemymanager;
+
+
+		}
+
+		internal override void Update(){
+			if (_boss.hp <= 5) {
+
+				SetStatus (TaskStatus.Success);
+			}
+
+
+		}
+	}
+
+	public class FireTask : Task {
+		private readonly Boss _boss;
+		private readonly EnemyManager _enemymanager;
+
+
+		public FireTask(Boss boss, EnemyManager enemymanager){
+			_boss = boss;
+			_enemymanager = enemymanager;
+
+		}
+		protected override void Init ()
+		{
+			_boss.FireBullet ();
+		}
+
+		internal override void Update(){
+			if (_boss.hp <= 2) {
+				_boss.StopFiring ();
+				SetStatus (TaskStatus.Success);
+			}
+
+
+		}
+	}
+
+	public class ChaseTask : Task {
+		private readonly Boss _boss;
+		private readonly EnemyManager _enemymanager;
+		public ChaseTask(Boss boss, EnemyManager enemymanager){
+			_boss = boss;
+			_enemymanager = enemymanager;
+
+		}
+
+		protected override void Init(){
+			Debug.Log ("timetochase");
+			_boss.transform.localScale = new Vector3(1f, 1f, 1f);
+		}
+
+		internal override void Update(){
+			if (_boss.hp <= 0) {
+				SetStatus (TaskStatus.Success);
+			}
+			_boss.ChasePlayer ();
 		}
 	}
 }
 
-public class SpawnTask : Task {
-	private readonly Boss _boss;
-	private readonly EnemyManager _enemymanager;
-	public SpawnTask(Boss boss, EnemyManager enemymanager){
-		_boss = boss;
-		_enemymanager = enemymanager;
 
 
-	}
-
-	internal override void Update(){
-		if (_boss.hp <= 5) {
-			
-			SetStatus (TaskStatus.Success);
-		}
-			
-
-	}
-}
-
-public class FireTask : Task {
-	private readonly Boss _boss;
-	private readonly EnemyManager _enemymanager;
 
 
-	public FireTask(Boss boss, EnemyManager enemymanager){
-		_boss = boss;
-		_enemymanager = enemymanager;
-
-	}
-	protected override void Init ()
-	{
-		_boss.FireBullet ();
-	}
-
-	internal override void Update(){
-		if (_boss.hp <= 2) {
-			_boss.StopFiring ();
-			SetStatus (TaskStatus.Success);
-		}
 
 
-	}
-}
-
-public class ChaseTask : Task {
-	private readonly Boss _boss;
-	private readonly EnemyManager _enemymanager;
-	public ChaseTask(Boss boss, EnemyManager enemymanager){
-		_boss = boss;
-		_enemymanager = enemymanager;
-
-	}
-
-	protected override void Init(){
-		Debug.Log ("timetochase");
-		_boss.transform.localScale = new Vector3(1f, 1f, 1f);
-	}
-
-	internal override void Update(){
-		if (_boss.hp <= 0) {
-			SetStatus (TaskStatus.Success);
-		}
-		_boss.ChasePlayer ();
-	}
-}

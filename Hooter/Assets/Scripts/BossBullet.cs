@@ -12,9 +12,7 @@ public class BossBullet : MonoBehaviour {
 	// Use this for initialization
 	void Awake () {
 		//damage = 1;
-		transform.position = new Vector3 (Random.Range (0, 300), Random.Range (0, 300), transform.position.z);
-		GetComponent<Rigidbody>().velocity = transform.forward * speed;
-		transform.LookAt (GameObject.FindWithTag ("Player").transform);
+
 	}
 	
 	// Update is called once per frame
