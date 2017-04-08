@@ -30,7 +30,7 @@ public class EnemyD : Enemy {
 
 
 		type = "D";
-		hp = 1;
+		hp = 2;
 		dmg = 1;
 
 
@@ -99,6 +99,10 @@ public class EnemyD : Enemy {
 			} else {
 				count++;
 				Context.Pulse (); //make it more obvious that it's pulsing, give more time in-between
+				if (Context.takeDamage (1)) {
+					TransitionTo<Fleeing> ();
+					return;
+				}
 			}
 		}
 	}
