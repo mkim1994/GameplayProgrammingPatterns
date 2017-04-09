@@ -20,4 +20,6 @@ using UnityEngine;
 public static class Services {
 	public static TaskManager TaskManager{get;set;}
 
+	public static SceneManager<TransitionData> Scenes{get; set;}
+
 }
